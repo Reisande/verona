@@ -20,6 +20,7 @@ jobs:
         BuildType: Release
         BuildName: release
         Sanitizer:
+  condition: false
   variables:
   - name: PKG_NAME
     value: verona-llvm-install-x86_64-linux-$(BuildName)-$(GOOD_HASH)
@@ -143,6 +144,7 @@ jobs:
       Release:
         BuildType: Release
         BuildName: release
+  condition: false
   variables:
   - name: PKG_NAME
     value: verona-llvm-install-x86_64-darwin-$(BuildName)-$(GOOD_HASH)
