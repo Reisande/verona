@@ -40,6 +40,8 @@ namespace verona::interpreter
       COWN_UNOWNED,
 
       STRING,
+
+      VEC,
     };
 
     union Inner
@@ -50,6 +52,7 @@ namespace verona::interpreter
       const VMDescriptor* descriptor;
       uint64_t u64;
       std::string* string_ptr;
+      std::vector<Value>* vec_ptr;
 
       std::string& string()
       {
@@ -60,6 +63,16 @@ namespace verona::interpreter
       {
         return *string_ptr;
       }
+
+      std::vector<Value>& vec()
+      {
+        return *vec_ptr;
+      }
+
+      const std::vector<Value>& vec() const
+      {
+        return *vec_ptr;
+      }
     };
 
     Tag tag;
@@ -68,6 +81,7 @@ namespace verona::interpreter
     Value() : tag(Tag::UNINIT) {}
 
     static Value u64(uint64_t value);
+    static Value vec(uint64_t capacity); 
     static Value string(std::string value);
     static Value string(std::string_view value);
 
@@ -165,6 +179,7 @@ namespace verona::interpreter
     static constexpr Tag MUT = Tag::MUT;
     static constexpr Tag IMM = Tag::IMM;
     static constexpr Tag U64 = Tag::U64;
+    static constexpr Tag VEC = Tag::VEC;
     static constexpr Tag DESCRIPTOR = Tag::DESCRIPTOR;
     static constexpr Tag COWN = Tag::COWN;
     static constexpr Tag COWN_UNOWNED = Tag::COWN_UNOWNED;
