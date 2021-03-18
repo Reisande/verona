@@ -223,13 +223,6 @@ namespace verona::interpreter
      */
     std::deque<Value> stack_;
 
-    /**
-     * Value Heap.
-     *
-     * For now the only values which are in here should be of type VEC
-     */
-    std::priority_queue<Value> heap_;
-
     struct Frame
     {
       /**
