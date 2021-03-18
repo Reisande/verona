@@ -28,14 +28,6 @@ namespace verona::interpreter
     return Value::string(std::string(value));
   }
 
-  Value Value::vec(std::vector<Value>* value)
-  {
-    Value v;
-    v.tag = VEC;
-    v.inner.vec_ptr = value;
-    return v;
-  }
-
   Value Value::iso(VMObject* object)
   {
     assert(object->debug_is_iso());
@@ -130,10 +122,6 @@ namespace verona::interpreter
         delete inner.string_ptr;
         break;
 
-    case VEC:
-        delete inner.vec_ptr;
-        break;
-        
       case MUT:
       case UNINIT:
       case U64:
@@ -193,9 +181,6 @@ namespace verona::interpreter
       case STRING:
         return Value::string(inner.string());
 
-      case VEC:
-        return Value::vec(&inner.vec());
-        
       case DESCRIPTOR:
         return Value::descriptor(inner.descriptor);
 
@@ -244,9 +229,6 @@ namespace verona::interpreter
 
       case Value::STRING:
         return Value::string(inner.string());
-
-      case Value::VEC:
-        return Value::vec(&inner.vec());
 
       case Value::DESCRIPTOR:
         return Value::descriptor(inner.descriptor);
