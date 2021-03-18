@@ -81,9 +81,9 @@ namespace verona::interpreter
     Value() : tag(Tag::UNINIT) {}
 
     static Value u64(uint64_t value);
-    static Value vec(uint64_t capacity); 
     static Value string(std::string value);
     static Value string(std::string_view value);
+    static Value vec(std::vector<Value>* value); 
 
     // Takes ownership of the region.
     static Value iso(VMObject* object);
