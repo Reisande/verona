@@ -7,6 +7,7 @@
 
 #include <unordered_set>
 #include <verona.h>
+#include <vector>
 
 namespace verona::interpreter
 {
@@ -62,6 +63,11 @@ namespace verona::interpreter
     VMObject* parent_;
   };
 
+  struct VMVector : public VMObject
+  {
+    std::unique_ptr<std::vector<FieldValue>> inner;
+  };
+  
   struct VMCown : public rt::VCown<VMCown>
   {
     // This is the descriptor for cown[T], not for T.
