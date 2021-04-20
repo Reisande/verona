@@ -367,6 +367,17 @@ namespace verona::interpreter
     return std::move(value);
   }
 
+  Value VM::opcode_load_vec(const Value& base, uint32_t offset)
+  {
+    check_type(base, {Value::ISO, Value::MUT, Value::IMM});
+
+    VMVector* vec = base->vec;
+    const VMDescriptor* descriptor = vec->descriptor();
+    
+    Value value = vec->inner->at(offset).read(base.tag);
+    return std::move(value);
+  }
+
   Value VM::opcode_load_descriptor(DescriptorIdx desc_idx)
   {
     const VMDescriptor* descriptor = code_.get_descriptor(desc_idx);
@@ -542,6 +553,23 @@ namespace verona::interpreter
 
     Value old_value =
       object->fields[index].exchange(alloc_, object->region(), std::move(src));
+    return std::move(old_value);
+  }
+
+  Value VM::opcode_store_vec(const Value& base, uint32_t offset, Value src)
+  {
+    check_type(base, {Value::ISO, Value::MUT});
+
+    VMVector* vec = base->vec;
+    const VMDescriptor* desc = vec->descriptor();
+    
+    if (src.tag == Value::Tag::MUT && vec->region() != src->object->region())
+    {
+      fatal("Writing reference to incorrect region");
+    }
+
+    Value old_value =
+      vec->inner->at(offset).exchange(alloc_, vec->region(), std::move(src));
     return std::move(old_value);
   }
 

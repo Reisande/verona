@@ -282,6 +282,7 @@ namespace verona::bytecode
     Jump, // target(u16)
     JumpIf, // src(u8), target(u16)
     Load, // dst(u8), base(u8), selector(u32)
+    LoadVec, // dst(u8), (base(u8))[offset(u32)]
     LoadDescriptor, // dst(u8), descriptor_id(u32)
     MatchCapability, // dst(u8), src(u8), cap(u8)
     MatchDescriptor, // dst(u8), src(u8), descriptor(u8)
@@ -296,6 +297,7 @@ namespace verona::bytecode
     Protect, // argc(u8), args(u8)...
     Return,
     Store, // dst(u8), base(u8), selector(u32), src(u8)
+    StoreVec, // dst(u8), (base(u8))[offset(u32)], src(u8)
     TraceRegion, // region(u8)
     Unprotect, // argc(u8), args(u8)...
     Unreachable,
@@ -437,6 +439,13 @@ namespace verona::bytecode
   };
 
   template<>
+  struct OpcodeSpec<Opcode::LoadVec>
+  {
+    using Operands = OpcodeOperands<Register, Register, uint32_t>;
+    constexpr static std::string_view format = "LOADVEC {}, ({}){}";
+  };
+  
+  template<>
   struct OpcodeSpec<Opcode::MatchCapability>
   {
     using Operands = OpcodeOperands<Register, Register, Capability>;
@@ -511,6 +520,13 @@ namespace verona::bytecode
   {
     using Operands = OpcodeOperands<Register, Register, SelectorIdx, Register>;
     constexpr static std::string_view format = "STORE {}, {}[{:#x}], {}";
+  };
+
+  template<>
+  struct OpcodeSpec<Opcode::StoreVec>
+  {
+    using Operands = OpcodeOperands<Register, Register, uint32_t, Register>;
+    constexpr static std::string_view format = "STORE {}, ({}){}, {}";
   };
 
   template<>

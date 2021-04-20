@@ -6,13 +6,15 @@
 
 #include <fmt/format.h>
 #include <verona.h>
+#include <vector>
 
 namespace verona::interpreter
 {
   struct VMDescriptor;
   struct VMObject;
   struct VMCown;
-
+  struct VMVector;
+  
   /**
    * Tagged Verona value, which handles ownership of objects and reference
    * counts.
@@ -36,6 +38,7 @@ namespace verona::interpreter
 
       DESCRIPTOR,
       U64,
+      VEC,
       COWN,
       COWN_UNOWNED,
 
@@ -46,6 +49,7 @@ namespace verona::interpreter
     {
       // Used by the ISO, MUT and IMM variants.
       VMObject* object;
+      VMVector* vec;
       VMCown* cown;
       const VMDescriptor* descriptor;
       uint64_t u64;
@@ -68,6 +72,7 @@ namespace verona::interpreter
     Value() : tag(Tag::UNINIT) {}
 
     static Value u64(uint64_t value);
+    static Value Vector(std::vector<Value> vec);
     static Value string(std::string value);
     static Value string(std::string_view value);
 
