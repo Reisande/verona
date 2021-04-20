@@ -290,6 +290,7 @@ namespace verona::bytecode
     Move, // dst(u8), src(u8)
     MutView, // dst(u8), src(u8)
     NewObject, // dst(u8), region(u8), descriptor(u8)
+    NewVec, // dst(u8), region(u8), descriptor(u8), size(u32)
     NewCown, // dst(u8), descriptor(u8), src(u8)
     NewRegion, // dst(u8), descriptor(u8)
     NewSleepingCown, // dst(u8), descriptor(u8)
@@ -480,6 +481,13 @@ namespace verona::bytecode
     constexpr static std::string_view format = "NEW_OBJECT {}, {}, {}";
   };
 
+  template<>
+  struct OpcodeSpec<Opcode::NewVec>
+  {
+    using Operands = OpcodeOperands<Register, Register, Register, size_t>;
+    constexpr static std::string_view format = "NEW_VEC {}, {}, {}, {}";
+  };
+  
   template<>
   struct OpcodeSpec<Opcode::NewRegion>
   {

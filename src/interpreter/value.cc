@@ -28,7 +28,7 @@ namespace verona::interpreter
   {
     return Value::string(std::string(value));
   }
-
+  
   Value Value::iso(VMObject* object)
   {
     assert(object->debug_is_iso());
@@ -37,7 +37,7 @@ namespace verona::interpreter
     v.inner.object = object;
     return v;
   }
-
+  
   Value Value::mut(VMObject* object)
   {
     assert(object->debug_is_iso() || object->debug_is_mutable());
@@ -106,6 +106,10 @@ namespace verona::interpreter
   {
     switch (tag)
     {
+      case VEC:
+        //todo
+        break;
+        
       case COWN:
         rt::Cown::release(alloc, inner.cown);
         break;
