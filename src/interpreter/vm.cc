@@ -162,6 +162,8 @@ namespace verona::interpreter
   {
     switch (value.tag)
     {
+      case Value::VEC:
+        return value->vec->descriptor();
       case Value::MUT:
       case Value::IMM:
       case Value::ISO:
@@ -184,6 +186,8 @@ namespace verona::interpreter
   {
     switch (value.tag)
     {
+      case Value::VEC:
+        return value->vec->descriptor();
       case Value::MUT:
       case Value::IMM:
       case Value::ISO:

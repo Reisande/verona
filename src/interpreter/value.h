@@ -72,7 +72,6 @@ namespace verona::interpreter
     Value() : tag(Tag::UNINIT) {}
 
     static Value u64(uint64_t value);
-    static Value Vector(std::vector<Value> vec);
     static Value string(std::string value);
     static Value string(std::string_view value);
 
@@ -170,6 +169,7 @@ namespace verona::interpreter
     static constexpr Tag MUT = Tag::MUT;
     static constexpr Tag IMM = Tag::IMM;
     static constexpr Tag U64 = Tag::U64;
+    static constexpr Tag VEC = Tag::VEC;
     static constexpr Tag DESCRIPTOR = Tag::DESCRIPTOR;
     static constexpr Tag COWN = Tag::COWN;
     static constexpr Tag COWN_UNOWNED = Tag::COWN_UNOWNED;

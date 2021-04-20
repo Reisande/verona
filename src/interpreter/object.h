@@ -66,6 +66,9 @@ namespace verona::interpreter
   struct VMVector : public VMObject
   {
     std::unique_ptr<std::vector<FieldValue>> inner;
+
+    explicit VMVector(VMObject* region, const VMDescriptor* desc);
+    explicit VMVector(VMObject* region, const VMDescriptor* desc, uint32_t size);
   };
   
   struct VMCown : public rt::VCown<VMCown>

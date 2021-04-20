@@ -53,6 +53,18 @@ namespace verona::interpreter
       fields = nullptr;
   }
 
+  VMVector::VMVector(VMObject* region, const VMDescriptor* desc)
+  : VMObject(region, desc)
+  {
+    inner = std::make_unique<std::vector<FieldValue>>();
+  }
+
+  VMVector::VMVector(VMObject* region, const VMDescriptor* desc, uint32_t size)
+  : VMObject(region, desc)
+  {
+    inner = std::make_unique<std::vector<FieldValue>>(size);
+  }
+  
   VMObject* VMObject::region()
   {
     if (parent_ == nullptr)
