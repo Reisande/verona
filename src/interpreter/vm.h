@@ -80,6 +80,7 @@ namespace verona::interpreter
     Value opcode_mut_view(const Value& src);
     Value
     opcode_new_object(const Value& parent, const VMDescriptor* descriptor);
+    Value opcode_new_vec(const Value& parent, const VMDescriptor* descriptor, size_t size);
     Value opcode_new_region(const VMDescriptor* descriptor);
     Value opcode_new_cown(const VMDescriptor* descriptor, Value src);
     Value opcode_new_sleeping_cown(const VMDescriptor* descriptor);

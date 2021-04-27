@@ -457,6 +457,14 @@ namespace verona::interpreter
     return Value::mut(new (object) VMObject(region, descriptor));
   }
 
+  Value
+  opcode_new_vec(const Value& parent, const VMDescriptor* descriptor, size_t size)
+  {
+    // TODO
+    return Value();
+  }
+    
+  
   Value VM::opcode_new_region(const VMDescriptor* descriptor)
   {
     // TODO(region): For now, the only kind of region we can create is a trace
@@ -709,12 +717,14 @@ namespace verona::interpreter
       OP(Jump, opcode_jump);
       OP(JumpIf, opcode_jump_if);
       OP(Load, opcode_load);
+      OP(LoadVec, opcode_load_vec);
       OP(LoadDescriptor, opcode_load_descriptor);
       OP(MatchCapability, opcode_match_capability);
       OP(MatchDescriptor, opcode_match_descriptor);
       OP(Move, opcode_move);
       OP(MutView, opcode_mut_view);
       OP(NewObject, opcode_new_object);
+      OP(NewVec, opcode_new_vec);
       OP(NewRegion, opcode_new_region);
       OP(NewSleepingCown, opcode_new_sleeping_cown);
       OP(NewCown, opcode_new_cown);
@@ -722,6 +732,7 @@ namespace verona::interpreter
       OP(Protect, opcode_protect);
       OP(Return, opcode_return);
       OP(Store, opcode_store);
+      OP(StoreVec, opcode_store_vec);
       OP(String, opcode_string);
       OP(TraceRegion, opcode_trace_region);
       OP(When, opcode_when);
