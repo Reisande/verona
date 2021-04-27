@@ -458,12 +458,15 @@ namespace verona::interpreter
   }
 
   Value
-  opcode_new_vec(const Value& parent, const VMDescriptor* descriptor, size_t size)
+  VM::opcode_new_vec(const Value& parent, const VMDescriptor* descriptor, size_t size)
   {
-    // TODO
-    return Value();
-  }
-    
+    check_type(parent, {Value::ISO, Value::MUT});
+
+    VMObject* region = parent->object->region();
+    // TODO modify descriptor code for the constructor
+    rt::Object* object = rt::Region::alloc(alloc_, region, descriptor);
+    return Value::vec(new (object) VMVector(region, descriptor));
+  }    
   
   Value VM::opcode_new_region(const VMDescriptor* descriptor)
   {
@@ -724,7 +727,7 @@ namespace verona::interpreter
       OP(Move, opcode_move);
       OP(MutView, opcode_mut_view);
       OP(NewObject, opcode_new_object);
-      //OP(NewVec, opcode_new_vec);
+      OP(NewVec, opcode_new_vec);
       OP(NewRegion, opcode_new_region);
       OP(NewSleepingCown, opcode_new_sleeping_cown);
       OP(NewCown, opcode_new_cown);

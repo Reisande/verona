@@ -38,6 +38,15 @@ namespace verona::interpreter
     return v;
   }
   
+  Value Value::vec(VMVector* vec)
+  {
+    assert(vec->debug_is_iso() || vec->debug_is_mutable());
+    Value v;
+    v.tag = VEC;
+    v.inner.vec = vec;
+    return v;
+  }
+
   Value Value::mut(VMObject* object)
   {
     assert(object->debug_is_iso() || object->debug_is_mutable());
