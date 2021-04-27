@@ -107,7 +107,7 @@ namespace verona::interpreter
     switch (tag)
     {
       case VEC:
-        delete inner.vec_ptr;
+        delete inner.vec->inner.release();
         break;
         
       case COWN:

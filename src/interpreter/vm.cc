@@ -724,7 +724,7 @@ namespace verona::interpreter
       OP(Move, opcode_move);
       OP(MutView, opcode_mut_view);
       OP(NewObject, opcode_new_object);
-      OP(NewVec, opcode_new_vec);
+      //OP(NewVec, opcode_new_vec);
       OP(NewRegion, opcode_new_region);
       OP(NewSleepingCown, opcode_new_sleeping_cown);
       OP(NewCown, opcode_new_cown);
