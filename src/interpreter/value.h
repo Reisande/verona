@@ -75,6 +75,8 @@ namespace verona::interpreter
     static Value string(std::string value);
     static Value string(std::string_view value);
 
+    static Value vec(VMVector* vec);
+
     // Takes ownership of the region.
     static Value iso(VMObject* object);
     static Value mut(VMObject* object);
